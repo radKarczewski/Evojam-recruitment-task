@@ -1,7 +1,21 @@
 namespace DashboardModule {
 
     export class DashboardController {
-        static $inject = [];
         static controllerName = 'DashboardController';
+        static $inject = [
+            'DashboardService'
+        ];
+
+        constructor(
+            private dashboardService: DashboardService
+        ) {
+            this.init();
+        }
+
+        private init() {
+            this.dashboardService.getDataToCharts().then((result) => {
+                console.log(result);
+            });
+        }
     }
 }
