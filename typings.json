@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "angular-toastr": "registry:dt/angular-toastr#1.6.0+20160708003927"
+  },
+  "globalDependencies": {
+    "angular": "github:diegovilar/DefinitelyTyped/angularjs/angular.d.ts#926711691d213f76a483b36dd728e80be1257717",
+    "jquery": "registry:dt/jquery#1.10.0+20161119044246",
+    "moment": "registry:dt/moment#2.11.1+20161010105546",
+    "angular-ui-router": "github:DefinitelyTyped/DefinitelyTyped/angular-ui-router/angular-ui-router.d.ts#47310a628aa6d2d7e58ac0463a6a2e0918954d9e",
+    "angular-ui-bootstrap": "github:DefinitelyTyped/DefinitelyTyped/angular-ui-bootstrap/angular-ui-bootstrap.d.ts#fe6427be572f4b4f89841c96a"
+  }
+}
