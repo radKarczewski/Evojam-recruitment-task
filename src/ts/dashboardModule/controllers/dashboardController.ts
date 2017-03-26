@@ -6,6 +6,8 @@ namespace DashboardModule {
             'DashboardService'
         ];
 
+        public chartData: IChartData;
+
         constructor(
             private dashboardService: DashboardService
         ) {
@@ -14,7 +16,7 @@ namespace DashboardModule {
 
         private init() {
             this.dashboardService.getDataToCharts().then((result) => {
-                console.log(result);
+                this.chartData = this.dashboardService.convertToChartData(result);
             });
         }
     }

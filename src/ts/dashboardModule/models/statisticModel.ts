@@ -7,5 +7,9 @@ namespace DashboardModule {
         constructor(data?: ServerModule.StatisticDto) {
             super(data);
         }
+
+        public getWeekNumber() {
+            return moment.unix(this.date).week();
+        }
     }
 }
