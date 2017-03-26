@@ -44,8 +44,8 @@ namespace DashboardModule {
                 let weekChartValueLine: IChartValue = this.getWeekChartValue(chartData.line, statModel);
                 let weekChartValueBar: IChartValue = this.getWeekChartValue(chartData.bar, statModel);
 
-                weekChartValueLine.x += statModel.price;
-                weekChartValueBar.x += 1;
+                weekChartValueLine.y += statModel.price;
+                weekChartValueBar.y += 1;
             }
 
             return chartData;
@@ -80,14 +80,14 @@ namespace DashboardModule {
 
         private getChartValueFromValues(values: IChartValue[], weekNumber: number): IChartValue {
             for (let i = 0, len = values.length; i < len; i++) {
-                if (values[i].y === weekNumber) {
+                if (values[i].x === weekNumber) {
                     return values[i];
                 }
             }
 
             values.push({
-                x: 0,
-                y: weekNumber
+                x: weekNumber,
+                y: 0
             });
 
             return values[values.length -1];
@@ -97,8 +97,8 @@ namespace DashboardModule {
             return <IChartTypeData>{
                 key: type,
                 values: [{
-                    x: 0,
-                    y: weekNumber
+                    x: weekNumber,
+                    y: 0
                 }]
             }
         }
@@ -120,6 +120,6 @@ namespace DashboardModule {
 
     export interface IChartValue {
         x: number;
-        y: string|number;
+        y: number;
     }
 }
