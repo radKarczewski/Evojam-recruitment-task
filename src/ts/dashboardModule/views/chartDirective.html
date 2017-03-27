@@ -2,23 +2,27 @@
 
     <md-toolbar flex="none" layout="row">
         <div flex="none" class="icon-box">
-            <div></div>
+            <div layout="row" layout-align="center center">
+                <span class="icon revenue-icon" ng-if="dashboardType === 'revenue'">S</span>
+
+                <div class="icon installation-icon" ng-if="dashboardType === 'installations'"></div>
+            </div>
         </div>
-        <span flex md-truncate>Evojam recruitment task</span>
+        <span flex class="title" layout="row" layout-align="start center">{{title}}</span>
     </md-toolbar>
 
     <div flex layout="row" class="content">
 
-        <nvd3 flex options="chartOptions" data="chartData"></nvd3>
+        <nvd3 flex options="chartOptions" data="chartData" api="chartApi"></nvd3>
 
-        <div flex="none" layout="column">
-            <div flex layout="column" layout-align="top end">
-                <span>32,556</span>
-                <span>Tekst</span>
+        <div class="right-content" flex="none" layout="column">
+            <div flex layout="column">
+                <span flex="none" layout="row" layout-align="end top"><span class="dolar-value" ng-if="dashboardType === 'revenue'">$</span>{{rightSection.value}}</span>
+                <span flex="none" layout="row" layout-align="end top">{{rightSection.description}}</span>
             </div>
 
             <div flex layout="column" layout-align="end end">
-                <md-button>Test</md-button>
+                <md-button ng-click="chartApi.refresh()">{{rightSection.buttonText}}</md-button>
             </div>
         </div>
     </div>

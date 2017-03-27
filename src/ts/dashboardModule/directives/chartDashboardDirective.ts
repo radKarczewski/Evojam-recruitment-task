@@ -2,6 +2,16 @@ namespace DashboardModule {
 
     export interface IChartDataScope extends angular.IScope {
         chartData: IChartTypeData;
+        dashboardType: 'revenue'|'installations';
+        title: string;
+        rightSection: IRightSection;
+    }
+
+    export interface IRightSection {
+        value: string|number;
+        description: string;
+        buttonText: string;
+        buttonAction: Function
     }
 
     export interface IChartDataAttributes extends angular.IScope {
@@ -14,7 +24,10 @@ namespace DashboardModule {
         public templateUrl = '/ts/dashboardModule/views/chartDirective.html';
 
         public scope = {
-            'chartData': '='
+            'chartData': '=',
+            'dashboardType': '=',
+            'title': '=',
+            'rightSection': '='
         };
 
         private chartHelper: ChartHelper;

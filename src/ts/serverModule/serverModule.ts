@@ -43,4 +43,10 @@ namespace ServerModule {
         AnalyzedHR = 1,
         QuestionRight = 2
     }
+
+    export enum StatisticTypeTranslateEnum {
+        'Net Comp' = 0,
+        AnalyzedHR = 1,
+        'Question Right' = 2
+    }
 }

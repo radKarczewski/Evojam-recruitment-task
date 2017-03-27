@@ -14,16 +14,6 @@ namespace DashboardModule {
 
         }
 
-        // public static convertToModel(data: ServerModule.StatisticDto[]) {
-        //     let statisticsModels: StatisticModel[] = [];
-        //
-        //     for (let i = 0, len = data.length; i < len; i++) {
-        //         statisticsModels.push(new StatisticModel(data[i]));
-        //     }
-        //
-        //     return statisticsModels;
-        // }
-
         public getDataToCharts(): ng.IPromise<StatisticModel[]> {
             return this.httpProvider.get<ServerModule.StatisticDto[]>(ServerModule.ApiMethod.Dashboard.StatisticData).then((result) => {
                 return result.data.map((statisticDto: ServerModule.StatisticDto) => {
@@ -35,7 +25,9 @@ namespace DashboardModule {
         public convertToChartData(statisticsData: StatisticModel[]): IChartData {
             let chartData: IChartData = {
                 line: [],
-                bar: []
+                bar: [],
+                lineTotalValue: 0,
+                barTotalCount: 0
             };
 
             for (let i = 0, len = statisticsData.length; i < len; i++) {
@@ -44,8 +36,11 @@ namespace DashboardModule {
                 let weekChartValueLine: IChartValue = this.getWeekChartValue(chartData.line, statModel);
                 let weekChartValueBar: IChartValue = this.getWeekChartValue(chartData.bar, statModel);
 
-                weekChartValueLine.y += statModel.price;
+                weekChartValueLine.y = Math.round((statModel.price + weekChartValueLine.y) * 100) / 100;
                 weekChartValueBar.y += 1;
+
+                chartData.lineTotalValue += statModel.price;
+                chartData.barTotalCount += 1;
             }
 
             return chartData;
@@ -59,8 +54,9 @@ namespace DashboardModule {
             let weekChartValue: IChartValue = this.findWeekChartValueInData(chartTypeData, statModel);
 
             if (weekChartValue === null) {
-                chartTypeData.push(this.createChartTypeObj(statModel.type, statModel.getWeekNumber()));
-                weekChartValue = chartTypeData[0].values[0];
+                let chartTypeObj: IChartTypeData = this.createChartTypeObj(statModel.type, statModel.getWeekNumber());
+                chartTypeData.push(chartTypeObj);
+                weekChartValue = chartTypeObj.values[0];
             }
 
             return weekChartValue;
@@ -70,7 +66,7 @@ namespace DashboardModule {
             for (let i = 0, len = chartTypeValues.length; i < len; i++) {
                 let chartType: IChartTypeData = chartTypeValues[i];
 
-                if (chartType.key === statModel.type) {
+                if (chartType.key === ServerModule.StatisticTypeTranslateEnum[statModel.type]) {
                     return this.getChartValueFromValues(chartType.values, statModel.getWeekNumber());
                 }
             }
@@ -95,7 +91,7 @@ namespace DashboardModule {
 
         private createChartTypeObj(type: ServerModule.StatisticTypeEnum, weekNumber: number): IChartTypeData {
             return <IChartTypeData>{
-                key: type,
+                key: ServerModule.StatisticTypeTranslateEnum[type],
                 values: [{
                     x: weekNumber,
                     y: 0
@@ -111,10 +107,12 @@ namespace DashboardModule {
     export interface IChartData {
         line: IChartTypeData[];
         bar: IChartTypeData[];
+        lineTotalValue: number;
+        barTotalCount: number;
     }
 
     export interface IChartTypeData {
-        key: ServerModule.StatisticTypeEnum;
+        key: string;
         values: IChartValue[]
     }
 

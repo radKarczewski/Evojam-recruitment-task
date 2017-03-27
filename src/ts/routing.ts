@@ -35,9 +35,7 @@ namespace EvojamApp {
                 let route: IRouteConfig = routes[key];
                 let url: string = '/';
 
-                if (route.name !== 'jobs') {
-                    url += EvojamApp.Routing.stateNameToDashName(route.name);
-                }
+                url += EvojamApp.Routing.stateNameToDashName(route.name);
 
                 if (route.urlParams && route.urlParams.length > 0) {
                     for (let i = 0, len = route.urlParams.length; i < len; i++) {
@@ -52,8 +50,6 @@ namespace EvojamApp {
                     controllerAs: route.controllerAs
                 });
             }
-
-            $locationProvider.html5Mode({enabled: true, requireBase: false});
         }
 
         static stateNameToDashName = (str: string): string => {

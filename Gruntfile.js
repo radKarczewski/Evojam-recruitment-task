@@ -13,47 +13,12 @@ module.exports = function (grunt) {
         "http-server": {
 
             "dev": {
-
                 root: 'dist/build/',
-
                 port: 8282,
-
                 host: "127.0.0.1",
-
-                // cache: <sec>,
-                // showDir : true,
-                // autoIndex: true,
-
-                // server default file extension
                 ext: "html",
-
-                // run in parallel with other tasks
                 runInBackground: false,
-
-                // specify a logger function. By default the requests are
-                // sent to stdout.
-                // logFn: function(req, res, error) { },
-
-                // Proxies all requests which can't be resolved locally to the given url
-                // Note this this will disable 'showDir'
-                // proxy: "http://someurl.com",
-
-                /// Use 'https: true' for default module SSL configuration
-                /// (default state is disabled)
-                // https: {
-                //     cert: "cert.pem",
-                //     key : "key.pem"
-                // },
-
-                // Tell grunt task to open the browser
-                openBrowser : false,
-
-                // customize url to serve specific pages
-                // customPages: {
-                //     "/readme": "README.md",
-                //     "/readme.html": "README.html"
-                // }
-
+                openBrowser : true
             }
         },
         processhtml: {
@@ -77,16 +42,7 @@ module.exports = function (grunt) {
             },
             dev: {
             }
-        },
-        // 'sanitize': {
-        //     options: {
-        //     },
-        //     files: {
-        //         src: [
-        //             'dist/build/ts/**/*.js'
-        //         ]
-        //     }
-        // }
+        }
     });
     grunt.loadTasks('tasks');
 
@@ -95,8 +51,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('scripts', [
-        'ts',
-        // 'sanitize'
+        'ts'
     ]);
 
     grunt.registerTask('external', [
@@ -113,7 +68,8 @@ module.exports = function (grunt) {
         'typings:install',
         'styles',
         'scripts',
-        'copy:initBuild'
+        'copy:initBuild',
+        'http-server'
     ]);
 
 }
