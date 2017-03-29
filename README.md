@@ -1,25 +1,26 @@
 # README #
 
-## Wymagania ##
+## Requirements ##
 
 * ruby
 
-## Budowanie ##
+## Building ##
 
 ```
 npm install
 ```
 
-## Opis ##
+## Description ##
 
-Użyte technologie:
+Technologies:
 
 * angular
+* typescript
 * sass
 * html
 * grunt
 
-Biblioteki zewnętrzne:
+Javascript libraries:
 
-* Angular-nvd3 - darmowa biblioteka do prezentowania danych
-* Angular material - biblioteka pomocnicza przy stylowaniu
+* Angular-nvd3
+* Angular material
